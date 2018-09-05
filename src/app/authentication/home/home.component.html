@@ -1,0 +1,8 @@
+<div class="home">
+    <button *ngIf="access_token" (click)="loadUserProfile()">Get info profile</button>
+    <button class="btn btn-default" *ngIf="access_token" (click)="logout()">Logout</button>
+    <div *ngIf="userProfile">
+        <b>user profile:</b>
+        <pre>{{userProfile | json}}</pre>
+    </div>
+</div>

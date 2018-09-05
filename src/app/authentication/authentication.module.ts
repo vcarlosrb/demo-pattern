@@ -5,6 +5,7 @@ import { AuthenticationNavigation } from './shared/navigation/authentication.nav
 
 // Modules
 import { LoginModule } from './login/login.module';
+import { HomeModule } from './home/home.module';
 import { SignupModule } from './signup/signup.module';
 
 // Services
@@ -12,7 +13,8 @@ import { UserService } from './shared/data-manager/user.service';
 
 let modules = [
     LoginModule,
-    SignupModule
+    SignupModule,
+    HomeModule
 ];
 
 let services = [
@@ -20,12 +22,13 @@ let services = [
 ];
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule.forChild([
             ...AUTHENTICATION_ROUTES
         ]),
         ...modules 
     ],
+    declarations: [],
     providers: [
         AuthenticationNavigation,
         ...services
