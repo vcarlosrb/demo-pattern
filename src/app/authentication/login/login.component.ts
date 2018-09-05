@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { authConfig } from '../../common/auth/auth.config';
 import { OAuthService } from 'angular-oauth2-oidc';
+import {
+  AuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular-6-social-login';
 
 @Component({
   selector: 'dp-login',
@@ -12,13 +17,28 @@ export class LoginComponent {
   userProfile: object;
   access_token: string;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(
+    private oauthService: OAuthService,
+    private socialAuthService: AuthService) {
     this.oauthService.configure(authConfig);
     this.oauthService.loadDiscoveryDocument();
   }
 
   ngOnInit() {
     this.access_token = this.oauthService.getAccessToken();
+  }
+
+  public socialSignIn(socialPlatform : string) {
+    let socialPlatformProvider;
+    if(socialPlatform == "google"){
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+    
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform+" sign in data : " , userData);
+      }
+    );
   }
 
   login() {

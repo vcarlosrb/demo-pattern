@@ -2,8 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from "angular-6-social-login";
 
 import { LoginComponent } from './login.component';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("842107615603-t693r3eanbbo5749a8tm726584kvut8h.apps.googleusercontent.com")
+        }
+      ]
+  );
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -12,8 +30,14 @@ import { LoginComponent } from './login.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    SocialLoginModule
   ],
-  providers: []
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ]
 })
 export class LoginModule { }
