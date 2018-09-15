@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { ComponentsModule } from '../../common/components/components.module';
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider,
-  FacebookLoginProvider,
+  GoogleLoginProvider
 } from "angular-6-social-login";
 
 import { LoginComponent } from './login.component';
@@ -31,7 +31,8 @@ export function getAuthServiceConfigs() {
     CommonModule,
     HttpClientModule,
     OAuthModule.forRoot(),
-    SocialLoginModule
+    SocialLoginModule,
+    ComponentsModule
   ],
   providers: [
     {

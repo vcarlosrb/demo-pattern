@@ -3,14 +3,14 @@ import { AngularHttp } from "../../../common/http/angular-http";
 import { HttpApi } from "../../../common/http/http-api";
 
 @Injectable()
-export class UserService {
+export class ProductService {
   constructor(
     private _http: AngularHttp
   ) { }
 
   // Example
-  getById(): Promise<any> {
-    this._http.setUrl(HttpApi.user.getById('15'));
+  search(product: string): Promise<any> {
+    this._http.setUrl(HttpApi.product.search(product));
 
     return this._http.get();
   }

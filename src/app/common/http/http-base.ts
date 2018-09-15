@@ -16,7 +16,8 @@ export abstract class BaseHttp {
   protected error: any;
 
   public setUrl(url: string): BaseHttp {
-    this.url = BASE_API + url;
+    //this.url = BASE_API + url;
+    this.url = url;
 
     return this;
   }

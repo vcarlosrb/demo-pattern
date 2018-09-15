@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { authConfig } from '../../common/auth/auth.config';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { ProductService } from '../shared/data-manager/product.service';
 import {
   AuthService,
-  FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
 
@@ -13,20 +11,16 @@ import {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginFailed: boolean = false;
-  userProfile: object;
-  access_token: string;
+  user: any;
+  login = false;
+  products: any[] = [];
 
   constructor(
-    private oauthService: OAuthService,
-    private socialAuthService: AuthService) {
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocument();
-  }
+    private socialAuthService: AuthService,
+    private productService: ProductService
+  ) {}
 
-  ngOnInit() {
-    this.access_token = this.oauthService.getAccessToken();
-  }
+  ngOnInit() {}
 
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
@@ -34,24 +28,20 @@ export class LoginComponent {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
     
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      (userData) => {
-        console.log(socialPlatform+" sign in data : " , userData);
-      }
-    );
+    this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
+      this.login = true;
+      this.user = userData;
+    });
   }
 
-  login() {
-    this.oauthService.initImplicitFlow('/some-state;p1=1;p2=2');
-    // the parameter here is optional. It's passed around and can be used after logging in
+  searchProduct(product: string): void {
+    this.productService.search(product).then((result)=> {
+      console.log(result, 'result');
+      this.products = result.data;
+    });
   }
 
   logout() {
-    this.oauthService.logOut();
+    this.login = false;
   }
-
-  loadUserProfile(): void {
-    this.oauthService.loadUserProfile().then(up => (this.userProfile = up));
-  }
-
 }

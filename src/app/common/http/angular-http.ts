@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Request, RequestMethod, Response } from '@angular/http';
+import { Http, Request, RequestMethod, Response, HttpModule } from '@angular/http';
 import { BaseHttp } from './http-base';
 
 @Injectable()

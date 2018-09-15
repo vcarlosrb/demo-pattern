@@ -1,6 +1,34 @@
 <div class="login">
-    <p>Login</p>
-    <button (click)="socialSignIn('google')">Sign in with Google</button>
-    <br>
-    <button class="btn btn-default" (click)="login()">Login with oauth-server</button>
+    <header>
+        <div class="header_user">
+            <p *ngIf="login">{{user.name}}</p>
+            <button *ngIf="login" (click)="logout()">Salir</button>
+            <button *ngIf="!login" (click)="socialSignIn('google')">Iniciar sesion</button>
+        </div>
+    </header>
+    <div class="search-content" *ngIf="login">
+        <div class="search-block">
+            <button (click)="searchProduct(product.value)">Buscar</button>
+            <div>
+                <input type="text" #product>
+            </div>
+        </div>
+        <div class="search-empty" *ngIf="products.length == 0">
+            <p>NO HAY RESULTADOS DE BUSQUEDA</p>
+        </div>
+        <div class="search-list" *ngIf="products.length > 0">
+            <table>
+                <tr class="head">
+                    <th>PRODUCTO</th>
+                    <th>STOCK</th>
+                    <th>INFO ADICIONAL</th>
+                </tr>
+                <tr *ngFor="let product of products" class="body">
+                    <td>{{product.producto}}</td>
+                    <td>{{product.stock}}</td>
+                    <td>{{product.info}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

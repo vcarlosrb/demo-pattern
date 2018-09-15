@@ -6,19 +6,13 @@ import { AuthenticationNavigation } from './shared/navigation/authentication.nav
 // Modules
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
-import { SignupModule } from './signup/signup.module';
 
 // Services
-import { UserService } from './shared/data-manager/user.service';
+import { ProductService } from './shared/data-manager/product.service';
 
 let modules = [
     LoginModule,
-    SignupModule,
     HomeModule
-];
-
-let services = [
-    UserService
 ];
 
 @NgModule({
@@ -31,7 +25,7 @@ let services = [
     declarations: [],
     providers: [
         AuthenticationNavigation,
-        ...services
+        ProductService
     ]
 })
 export class AuthenticationModule { }
